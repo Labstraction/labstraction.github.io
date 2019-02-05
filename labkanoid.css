@@ -1,1 +1,11 @@
-canvas { background: #313131; display: block; margin: 0 auto; }
+body{
+    background-color: #313131;
+    color: white;
+}
+canvas {
+     border-width: 10px;
+     border-color: white;
+     background: #313131; 
+     display: block; 
+     margin: 0 auto; 
+    }
