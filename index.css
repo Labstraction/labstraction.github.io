@@ -2,7 +2,7 @@ body{
     background-color: #313131;
     color: white;
     font-family: 'Roboto', sans-serif;
-    font-style: light;
+    font-style: "light";
 }
 a{
     color: greenyellow;
