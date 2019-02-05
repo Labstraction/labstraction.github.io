@@ -3,9 +3,7 @@ body{
     color: white;
 }
 canvas {    
-    display:block;
-    border-width: 10px;
-    border-color: white;
+    outline: white 3px solid;
     background: #313131; 
     display: block; 
     margin: 0 auto; 
