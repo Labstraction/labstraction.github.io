@@ -45,6 +45,7 @@ function drawPaddle() {
     ctx.fillStyle = "#ffffff";
     ctx.fill();
     ctx.closePath();
+    
 }
 
 function draw() {
