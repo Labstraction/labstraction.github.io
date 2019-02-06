@@ -1,12 +1,19 @@
 body{
     background-color: #313131;
     color: white;
-    font-family: 'Roboto', sans-serif;
+    font-family: 'Roboto Mono', monospace;
+}
+div{
+    width: auto;
+    text-align: center;
+    display: block;
+ 
 }
 a{
-    color: greenyellow;
+    color:#33ff00;
 }
-pre{
-    font-family: "monospace";
-    color: greenyellow;
+h1{
+    font-size:300%;
+    margin-top: 0;
 }
+

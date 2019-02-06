@@ -1,6 +1,20 @@
 body{
     background-color: #313131;
     color: white;
+    font-family: 'Roboto Mono', monospace;
+}
+div{
+    width: auto;
+    text-align: center;
+    display: block;
+ 
+}
+a{
+    color:#33ff00;
+}
+h1{
+    font-size:300%;
+    margin-top: 0;
 }
 canvas {    
     outline: white 3px solid;
