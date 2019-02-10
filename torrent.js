@@ -1,4 +1,4 @@
-const connectionString = "http://www.killersinger2000.info/tse/v3.6/simplehtmldom_1_5/my_parsers/scraping/my_scraper3.php?query=life&sort=0&category=0&page=0&adult=false&key=abcd&concurrent=0&provider_ids[]=3"
+const connectionString = "https://www.killersinger2000.info/tse/v3.6/simplehtmldom_1_5/my_parsers/scraping/my_scraper3.php?query=life&sort=0&category=0&page=0&adult=false&key=abcd&concurrent=0&provider_ids[]=3"
 const connectionString2 = "http://www.google.com"
 
 ;(function(){
