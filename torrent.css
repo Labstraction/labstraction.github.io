@@ -13,7 +13,7 @@ div {
 
 a {
     color: #33ff00;
-    font-size: 0.3vw;
+    font-size: 1vw;
 }
 
 h1 {
@@ -26,8 +26,9 @@ ul {
 }
 
 li{
-    font-size: 1vw;
+    font-size: 2vw;
     color: #313131;
-    margin: 0.5vw;
+    margin: 2vw;
+    padding: 1vw;
     background-color: white;
 }
