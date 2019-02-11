@@ -5,8 +5,8 @@ body {
     font-size: 0.5vw;
 }
 
-.header {
-    grid-area: header;
+.top {
+    grid-area: top;
 }
 
 .left {
@@ -21,13 +21,13 @@ body {
     grid-area: right;
 }
 
-.footer {
-    grid-area: footer;
+.bottom {
+    grid-area: bottom;
 }
 
 .grid-container {
     display: grid;
-    grid-template-areas: 'header header header header header header' 'left center center center right' 'footer footer footer footer footer footer';
+    grid-template-areas: 'top top top top top top' 'left center center center right' 'bottom bottom bottom bottom bottom bottom';
     grid-gap: 10px;
     background-color: #2196F3;
     padding: 10px;
