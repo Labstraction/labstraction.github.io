@@ -1,3 +1,6 @@
+* {
+    box-sizing: border-box;
+}
 body {
     background-color: #313131;
     color: white;
@@ -9,22 +12,28 @@ body {
 
 .top {
     grid-area: top;
+    text-align: center;
+    height: 20vh;
 }
 
 .left {
+    height: 70vh;
     grid-area: left;
 }
 
 .center {
+    height: 70vh;
     grid-area: center;
 }
 
 .right {
+    height: 70vh;
     grid-area: right;
 }
 
 .bottom {
     grid-area: bottom;
+    height: 10vh;
 }
 
 .grid-container {
@@ -66,4 +75,14 @@ li {
     padding: 1vw;
     background-color: white;
     border-radius: 2vw;
+}
+@media (max-width: 600px) {
+    .grid-container  {
+      grid-template-areas: 
+        'header header header header header header' 
+        'left left left left left left' 
+        'middle middle middle middle middle middle' 
+        'right right right right right right' 
+        'footer footer footer footer footer footer';
+    }
 }
