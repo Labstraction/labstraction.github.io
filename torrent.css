@@ -41,8 +41,6 @@ body {
     grid-template-areas: 
     'top top top top top top' 
     'left center center center right' 
-    'left center center center right'
-    'left center center center right'
     'bottom bottom bottom bottom bottom bottom';
     grid-gap: 10px;
     background-color: #2196F3;
