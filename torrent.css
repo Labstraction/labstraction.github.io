@@ -25,10 +25,13 @@ ul {
     list-style-type: none;
 }
 
-li{
+li {
     font-size: 2vw;
     color: #313131;
     margin: 2vw;
     padding: 1vw;
     background-color: white;
+    border-radius: 2vw;
+    el
+
 }
