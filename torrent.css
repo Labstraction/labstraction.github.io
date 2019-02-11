@@ -26,6 +26,7 @@ ul {
 }
 
 li{
+    font-size: 1vw;
     color: #313131;
     margin: 0.5vw;
     background-color: white;

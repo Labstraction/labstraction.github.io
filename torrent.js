@@ -11,12 +11,13 @@ const connectionString2 = "http://www.google.com"
                 let ulist= document.getElementById("pippo")
                 obj.results.forEach(element => {
                     let cell = document.createElement("li");
-                    cell.innerHTML = element.title;
-                    cell.appendChild(document.createElement("br"))
+                    let text = document.createTextNode(element.title);
+                    text.appendChild(document.createElement("br"))
                     let link = document.createElement("a");
                     link.setAttribute("href", element.magnet);
                     link.innerHTML = "link";
-                    cell.appendChild(link);
+                    text.appendChild(link);
+                    cell.appendChild(text);
                     ulist.appendChild(cell);
 
                 });
