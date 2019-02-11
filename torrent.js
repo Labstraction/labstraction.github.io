@@ -11,7 +11,8 @@ const connectionString2 = "http://www.google.com"
                 let ulist= document.getElementById("pippo")
                 obj.results.forEach(element => {
                     let cell = document.createElement("li");
-                    let text = document.createTextNode(element.title);
+                    let text = document.createElement("strong");
+                    text.innerText = element.title;
                     text.appendChild(document.createElement("br"))
                     let link = document.createElement("a");
                     link.setAttribute("href", element.magnet);
