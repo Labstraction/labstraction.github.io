@@ -8,17 +8,16 @@ const connectionString2 = "http://www.google.com"
                 alert("bella storia")
 
                 let obj = JSON.parse(data);
-                let div = document.getElementById("pippo")
+                let ulist= document.getElementById("pippo")
                 obj.results.forEach(element => {
-                    let title = document.createElement("h1");
+                    let cell = document.createElement("li");
                     title.innerHTML = element.title;
                     title.appendChild(document.createElement("br"))
-                    div.appendChild(title);
-
                     let link = document.createElement("a");
                     link.setAttribute("href", element.magnet);
                     link.innerHTML = "link";
-                    div.appendChild(link);
+                    cell.appendChild(link);
+                    ulist.appendChild(cell);
 
                 });
             }
