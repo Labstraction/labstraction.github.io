@@ -8,7 +8,7 @@ const connectionString2 = "http://www.google.com"
                 alert("bella storia")
 
                 let obj = JSON.parse(data);
-                let ulist= document.getElementById("pippo")
+                let ulist= document.getElementById("list")
                 obj.results.forEach(element => {
                     let cell = document.createElement("li");
                     let text = document.createElement("strong");

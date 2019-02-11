@@ -5,10 +5,38 @@ body {
     font-size: 0.5vw;
 }
 
-div {
-    width: auto;
+.header {
+    grid-area: header;
+}
+
+.left {
+    grid-area: left;
+}
+
+.center {
+    grid-area: center;
+}
+
+.right {
+    grid-area: right;
+}
+
+.footer {
+    grid-area: footer;
+}
+
+.grid-container {
+    display: grid;
+    grid-template-areas: 'header header header header header header' 'left center center center right' 'footer footer footer footer footer footer';
+    grid-gap: 10px;
+    background-color: #2196F3;
+    padding: 10px;
+}
+
+.grid-container>div {
+    background-color: rgba(255, 255, 255, 0.8);
     text-align: center;
-    display: block;
+    padding: 1vw;
 }
 
 a {
@@ -18,7 +46,6 @@ a {
 
 h1 {
     font-size: 10vw;
-    margin-top: 0;
 }
 
 ul {
@@ -32,6 +59,4 @@ li {
     padding: 1vw;
     background-color: white;
     border-radius: 2vw;
-    
-
 }
