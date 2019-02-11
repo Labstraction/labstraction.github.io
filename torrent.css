@@ -2,7 +2,7 @@ body {
     background-color: #313131;
     color: white;
     font-family: 'Roboto Mono', monospace;
-    font-size: 2vw;
+    font-size: 0.5vw;
 }
 
 div {
@@ -13,6 +13,7 @@ div {
 
 a {
     color: #33ff00;
+    font-size: 0.3vw;
 }
 
 h1 {
