@@ -27,6 +27,6 @@ ul {
 
 li{
     color: #313131;
-    max-width: 0.5vw;
+    margin: 0.5vw;
     background-color: white;
 }
