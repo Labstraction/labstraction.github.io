@@ -8,13 +8,20 @@ body {
     font-size: 0.5vw;
 }
 
+
+
 .top {
     grid-area: top;
     font-size: 7vw;
 }
 
+.search{
+    grid-area: search;
+}
+
 .left {
     grid-area: left;
+    background-color: #33ff00;
     height: 70vh;
 }
 
@@ -25,7 +32,7 @@ body {
 
 .right {
     grid-area: right;
-    height: 70vh;
+    background-color: #33ff00;
 }
 
 .bottom {
@@ -38,6 +45,7 @@ body {
     
     grid-template-areas: 
     'top top top top top' 
+    'left search search search right'
     'left center center center right' 
     'bottom bottom bottom bottom bottom';
 
@@ -72,9 +80,14 @@ li {
     .grid-container  {
       grid-template-areas: 
         'top top top top top' 
-        
+        'search search search search search'
         'center center center center center' 
-        
         'bottom bottom bottom bottom bottom';
+    }
+    .left{
+        display: none;
+    }
+    .right{
+        display: none;
     }
 }
