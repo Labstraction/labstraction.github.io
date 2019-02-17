@@ -1,49 +1,82 @@
 let canvas = document.getElementById("myCanvas");
 let ctx = canvas.getContext("2d");
-const startX = canvas.width/2-2;
-const startY = canvas.height-1;
-let player1X = startX;
-let player1Y = startY;
-let player1dx = 0;
-let player1dy = -1;
+const START_Y = canvas.height-1;
+const colors = ["red", "yellow", "blue", "green"];
+let players = [];
 
 
-ctx.strokeStyle= "#ffffff";
-ctx.rect(0,0, canvas.width, canvas.height);
-ctx.stroke();
 
 
-function checkWall(actualPositionX,actualPositionY, actualHorizontalDirection, actualVerticalDirection){
-    let imageData = ctx.getImageData(actualPositionX+(actualHorizontalDirection*2), actualPositionY+(actualVerticalDirection*2),1,1).data;
+
+
+function init(){
+    ctx.strokeStyle= "#ffffff";
+    ctx.rect(0,0, canvas.width, canvas.height);
+    ctx.stroke();
+    for (let index = 0; index < colors.length; index++) {
+        
+        let player = {
+            actualX : ((canvas.width-2)/colors.length+1)*(1+index),
+            actualY : START_Y,
+            horizontalDirection : 0,
+            verticalDirection : -1,
+            color: colors[index]
+        }
+
+        players.push(player);
+        
+    }
+ 
+}
+
+
+
+function checkWall(player){
+    
+    let nextMoveX = player.actualX+(player.horizontalDirection*2);
+    let nextMoveY = player.actualY+(player.verticalDirection*2);
+
+    if (nextMoveX<0||nextMoveX>canvas.width) {
+        return false;
+    }
+    if (nextMoveY<0||nextMoveY>canvas.height) {
+        return false;
+    }
+
+    let imageData = ctx.getImageData(nextMoveX, nextMoveY, 1, 1).data;
     return imageData[0]+imageData[1]+imageData[2]!=0;
 }
 
-function controlPlayerDirection(){
-    if(checkWall(player1X,player1Y,player1dx,player1dy)){
-        player1dx = player1dx == 0? (Math.random() < 0.5 ? -1 : 1) : 0;
-        player1dy = player1dy == 0? (Math.random() < 0.5 ? -1 : 1) : 0;
-        controlPlayerDirection();
+function controlPlayerMovment(player){
+    if(checkWall(player)){
+        player.horizontalDirection = player.horizontalDirection == 0? (Math.random() < 0.5 ? -1 : 1) : 0;
+        player.verticalDirection = player.verticalDirection == 0? (Math.random() < 0.5 ? -1 : 1) : 0;
+        controlPlayerMovment();
     }
+
+    player.actualX += player.horizontalDirection;
+    player.actualY += player.verticalDirection;
 }
 
 
-function drawPlayer() {
+function drawPlayer(player) {
     ctx.beginPath();
-    ctx.fillStyle = "#ff0000";
-    ctx.fillRect(player1X, player1Y, 1, 1);
+    ctx.fillStyle = player.color;
+    ctx.fillRect(player.actualX, player.actualY, 1, 1);
 }
 
 
 
 function draw() {
+    players.forEach(player => {
+        controlPlayerMovment(player);
+        drawPlayer(player);
+    });
     
-    controlPlayerDirection();
-    drawPlayer();
 
-    console.log(checkWall(player1X,player1Y,player1dx,player1dy));
-    
-    player1X += player1dx;
-    player1Y += player1dy;
+  
 }
 
-setInterval(draw, 3);
+init();
+
+setInterval(draw, 2);
