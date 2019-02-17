@@ -16,7 +16,7 @@ function init(){
     for (let index = 0; index < colors.length; index++) {
         
         let player = {
-            actualX : ((canvas.width-2)/colors.length+1)*(1+index),
+            actualX : ((canvas.width-2)/(colors.length+1))*(1+index),
             actualY : START_Y,
             horizontalDirection : 0,
             verticalDirection : -1,
@@ -33,8 +33,8 @@ function init(){
 
 function checkWall(player){
     
-    let nextMoveX = player.actualX+(player.horizontalDirection*2);
-    let nextMoveY = player.actualY+(player.verticalDirection*2);
+    let nextMoveX = player.actualX+(player.horizontalDirection*3);
+    let nextMoveY = player.actualY+(player.verticalDirection*3);
 
     if (nextMoveX<0||nextMoveX>canvas.width) {
         return false;
