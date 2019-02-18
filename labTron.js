@@ -72,8 +72,6 @@ function init(){
 
 
 function checkWall(player){
-
-    console.log(player);
     
     let nextMoveX = player.actualX+(player.horizontalDirection*3);
     let nextMoveY = player.actualY+(player.verticalDirection*3);
@@ -111,8 +109,9 @@ function drawPlayer(player){
 
 function drawPoint(x,y,color){
     ctx.beginPath();
+    ctx.rect(x, y, 3, 3);
     ctx.fillStyle = color;
-    ctx.fillRect(x, y, 1, 1);
+    ctx.fill();
     ctx.closePath();
 }
 
@@ -129,6 +128,6 @@ function draw() {
 
 init();
 
-setInterval(draw, 1);
+setInterval(draw, 5);
 
 
