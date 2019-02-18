@@ -19,7 +19,7 @@ h1{
 }
 canvas {    
     outline: white 3px solid;
-    background: #313131; 
+    background: #000000; 
     display: block; 
     margin: 0 auto; 
 }
