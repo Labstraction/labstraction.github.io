@@ -72,8 +72,8 @@ function createOscillatorArray() {
 }
 
 function refresh(){
-    let lastPlayedColumn = playedColumn;
-    playedColumn = playedColumn + 1 === TILES_COLUMNS? 0 : playedColumn + 1;
+    let lastPlayedColumn = playedColumn - 1 === -1 ? TILES_COLUMNS-1: playedColumn-1;
+    
     for (let i = 0; i < TILES_ROW; i++) {
         let oldTile = tileMatrix[i][lastPlayedColumn];
         oldTile.isPlayed = false;
@@ -82,6 +82,12 @@ function refresh(){
         newTile.isPlayed = true;
         newTile.drawTile(graphicCtx);
     }
+
+    playedColumn = playedColumn + 1 === TILES_COLUMNS? 0 : playedColumn + 1;
+    if(playedColumn === 0){
+        lifeAndDeatLogic(tileMatrix,graphicCtx);
+    }
+    
 
 }
 
