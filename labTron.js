@@ -1,17 +1,22 @@
-
+"use strict";
 let canvas = document.getElementById("myCanvas");
 let ctx = canvas.getContext("2d");
+const COLORS = ["red", "green", "purple"]//, "pink", "orange", "blue", "gold", "aqua", "brown", "crimson", "fuchsia", "magenta"];
 const START_Y = Math.trunc(canvas.height - 1);
-const COLORS = ["red", "green", "purple", "pink", "orange", "blue"];
-const TAIL_LENGHT = 500;
+const RADIUS = 2;
+const WALL_INSIGHT = 3;
+const SPEED = 2
+const TAIL_LENGHT = 100;
 const BLACK = "#000000";
 let players = [];
+let pressedKey;
+
 
 
 let behaviours = (function (players) {
 
     function checkWall(player) {
-        let imageData = ctx.getImageData(player.actualX + (player.horizontalDirection * 3), player.actualY + (player.verticalDirection * 3), 1, 1).data;
+        let imageData = ctx.getImageData(player.actualX + (player.horizontalDirection * WALL_INSIGHT), player.actualY + (player.verticalDirection * WALL_INSIGHT), 1, 1).data;
         return imageData[0] + imageData[1] + imageData[2] != 0;
     }
 
@@ -46,7 +51,7 @@ let behaviours = (function (players) {
     function MovePlayer(player) {
         player.actualX += player.horizontalDirection;
         player.actualY += player.verticalDirection;
-        manageTail(player)
+        //manageTail(player)
     }
 
     function randomBehaviour() {
@@ -54,20 +59,20 @@ let behaviours = (function (players) {
             return;
         }
         if (checkWall(this)) {
-            this.horizontalDirection = this.horizontalDirection == 0 ? (Math.random() < 0.5 ? -1 : 1) : 0;
-            this.verticalDirection = this.verticalDirection == 0 ? (Math.random() < 0.5 ? -1 : 1) : 0;
+            this.horizontalDirection = this.horizontalDirection == 0 ? (Math.random() < 0.5 ? -1*SPEED : 1*SPEED) : 0;
+            this.verticalDirection = this.verticalDirection == 0 ? (Math.random() < 0.5 ? -1*SPEED : 1*SPEED) : 0;
             if (checkWall(this)) {
-                this.horizontalDirection = this.horizontalDirection * -1
-                this.verticalDirection = this.verticalDirection * -1
+                this.horizontalDirection = this.horizontalDirection * -1;
+                this.verticalDirection = this.verticalDirection * -1;
                 if (checkWall(this)) {
                     destroyPlayer(this);
                     return;
                 }
             }
         } else {
-            if (Math.random() < 0.0001) {
-                this.horizontalDirection = this.horizontalDirection == 0 ? (Math.random() < 0.5 ? -1 : 1) : 0;
-                this.verticalDirection = this.verticalDirection == 0 ? (Math.random() < 0.5 ? -1 : 1) : 0;
+            if (Math.random() < 0.001) {
+                this.horizontalDirection = this.horizontalDirection == 0 ? (Math.random() < 0.5 ? -1*SPEED : 1*SPEED) : 0;
+                this.verticalDirection = this.verticalDirection == 0 ? (Math.random() < 0.5 ? -1*SPEED : 1*SPEED) : 0;
             }
         }
 
@@ -98,18 +103,61 @@ let behaviours = (function (players) {
 
     };
 
+
+    function controlledBehaviour() {
+        if (isDeath(this)) {
+            return;
+        }
+        if (pressedKey
+         == "Up" || pressedKey
+     == "ArrowUp") {
+            if(this.verticalDirection==0){
+                this.verticalDirection=-1*SPEED;
+                this.horizontalDirection=0;
+            }
+        }
+        else if (pressedKey
+         == "Down" || pressedKey
+     == "ArrowDown") {
+            if(this.verticalDirection==0){
+                this.verticalDirection=1*SPEED;
+                this.horizontalDirection=0;
+            }
+        }
+        else if (pressedKey
+         == "left" || pressedKey
+     == "ArrowLeft") {
+            if(this.horizontalDirection==0){
+                this.verticalDirection=0;
+                this.horizontalDirection=-1*SPEED;
+            }
+        }
+        else if (pressedKey
+         == "right" || pressedKey
+     == "ArrowRight") {
+            if(this.horizontalDirection==0){
+                this.verticalDirection=0;
+                this.horizontalDirection=1*SPEED;
+            }
+        }
+
+        MovePlayer(this);
+    }
+
+
     let allBeahaviours = [randomBehaviour, trackBehaviour, goAwayBeaviour];
 
 
-    return {
-        randomBehaviour: randomBehaviour,
-        trackBehaviour: trackBehaviour,
-        goAwayBeaviour: goAwayBeaviour,
-        allBeahaviours: allBeahaviours,
-        destroy: destroyPlayer
-    }
+return {
+    randomBehaviour: randomBehaviour,
+    trackBehaviour: trackBehaviour,
+    goAwayBeaviour: goAwayBeaviour,
+    controlledBehaviour: controlledBehaviour,
+    allBeahaviours: allBeahaviours,
+    destroy: destroyPlayer
+}
 
-})(players);
+}) (players);
 
 
 
@@ -120,19 +168,25 @@ let behaviours = (function (players) {
 
 
 function init() {
+    ctx.beginPath()
     ctx.strokeStyle = "#ffffff";
     ctx.rect(0, 0, canvas.width, canvas.height);
     ctx.stroke();
+    ctx.closePath()
     for (let index = 0; index < COLORS.length; index++) {
+        let newBehaviour = behaviours.randomBehaviour;
+        if (index==0) {
+            newBehaviour = behaviours.controlledBehaviour;
+        }
 
         let player = {
             actualX: Math.trunc(((canvas.width - 2) / (COLORS.length + 1)) * (1 + index)),
             actualY: START_Y,
             horizontalDirection: 0,
-            verticalDirection: -1,
+            verticalDirection: -1*SPEED,
             color: COLORS[index],
             points: [],
-            behaviour: behaviours.randomBehaviour
+            behaviour: newBehaviour
 
         }
 
@@ -143,8 +197,20 @@ function init() {
 }
 
 
+document.addEventListener("keydown", keyDownHandler, false);
+
+function keyDownHandler(e) {
+    pressedKey=e.key;
+   
+}
+
+
 function drawPlayer(player) {
-    drawPoint(player.actualX, player.actualY, player.color);
+    ctx.beginPath();
+    ctx.arc(player.actualX, player.actualY,RADIUS,0,Math.PI*2);
+    ctx.fillStyle = player.color;
+    ctx.fill();
+    ctx.closePath();
 }
 
 function drawPoint(x, y, color) {
@@ -168,7 +234,7 @@ function draw() {
 
 init();
 
-setInterval(draw, 5);
+setInterval(draw, 10);
 
 
 
