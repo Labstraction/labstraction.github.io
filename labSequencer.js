@@ -9,6 +9,7 @@ const TILE_DIMENSION = 20;
 const TILES_ROW = canvas.height/TILE_DIMENSION;
 const TILES_COLUMNS = canvas.width/TILE_DIMENSION;
 let tileMatrix = [];
+let playedColumn = 0;
 
 
 canvas.onselectstart = function () { return false; }
@@ -70,6 +71,24 @@ function createOscillatorArray() {
     return tempArray;
 }
 
+function refresh(){
+    let lastPlayedColumn = playedColumn;
+    playedColumn = playedColumn + 1 === TILES_COLUMNS? 0 : playedColumn + 1;
+    for (let i = 0; i < TILES_ROW; i++) {
+        let oldTile = tileMatrix[i][lastPlayedColumn];
+        oldTile.isPlayed = false;
+        oldTile.drawTile(graphicCtx);
+        let newTile = tileMatrix[i][playedColumn];
+        newTile.isPlayed = true;
+        newTile.drawTile(graphicCtx);
+    }
+
+}
+
+
+
 init();
+
+setInterval(refresh, 200);
 
 

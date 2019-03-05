@@ -3,7 +3,7 @@ const COLOR_IDLE = "#313131";
 const COLOR_ACTIVE = "#f32148";
 const COLOR_BORDER_LOCKED = "#ffffff";
 const COLOR_BORDER_UNLOCKED = "#000000";
-const COLOR_BORDER_PLAYED = "#1ab385";
+const COLOR_BORDER_PLAYED = "#00FF00";
 
 function Tile(originX, originY, width, heigh){
     this.originX = originX;
@@ -32,7 +32,7 @@ Tile.prototype.tileFillColor = tileFillColor;
 
 function tileBorderColor(){
     if (this.isPlayed) {
-        return COLOR_BORDER_PLAYEDh;
+        return COLOR_BORDER_PLAYED;
     }
     if (this.status === tileStatus.activeLock || this.status === tileStatus.idleLock) {
         return COLOR_BORDER_LOCKED;
