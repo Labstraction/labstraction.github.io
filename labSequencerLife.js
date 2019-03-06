@@ -15,24 +15,31 @@ function countLivingNeighbors(matrix, row, column) {
     return count;
   }
 
-function lifeAndDeatLogic(matrix, graphicContext){
+function lifeAndDeatLogic(matrix, graphicCtx){
     let rowNumber = matrix.length;
     let columnNumber = matrix[0].length;
     for (let i = 0; i < rowNumber; i++) {
         for (let j = 0; j < columnNumber; j++) {
             let tile = matrix[i][j];
             if(tile.status === tileStatus.idle|| tile.status === tileStatus.active){
-                let count = countLivingNeighbors(matrix,i,j);
-                if ((count < 2 || count > 3)&&tile.status===tileStatus.active) {
-                    tile.status = tileStatus.idle;
-                    tile.drawTile(graphicContext);
-                }else if (count === 3 && tile.status === tileStatus.idle) {
-                    tile.status = tileStatus.active;
-                    tile.drawTile(graphicContext);
-                } 
+                tile.livingNeighbours = countLivingNeighbors(matrix,i,j);
             }
             
         }
         
     }
+    for (let i = 0; i < rowNumber; i++) {
+        for (let j = 0; j < columnNumber; j++) {
+            let tile = matrix[i][j];
+            if(tile.status == tileStatus.active&&(tile.livingNeighbours<2||tile.livingNeighbours>3)){
+                tile.status = tileStatus.idle;
+                tile.drawTile(graphicCtx);
+            }else if(tile.status == tileStatus.idle&& tile.livingNeighbours===3){
+                tile.status = tileStatus.active;
+                tile.drawTile(graphicCtx);
+            }
+        }
+    }
+
+
 }

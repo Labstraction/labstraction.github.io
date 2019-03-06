@@ -12,6 +12,7 @@ function Tile(originX, originY, width, heigh){
     this.heigh = heigh;
     this.status = tileStatus.idle;
     this.isPlayed = false;
+    this.livingNeighbours=-1;
 };
 
 function tileFillColor(){
