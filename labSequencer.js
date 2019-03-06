@@ -1,26 +1,30 @@
 'use strict'
 
 
-let waveType = "sine";
+let waveType = "saw";
 let audioCtx;
+const velocity = 200;
+const gainTime = velocity/1000;
 let noteValues = Object.values(note)
 let canvas = document.getElementById("myCanvas");
 let graphicCtx = canvas.getContext("2d");
-const TILE_DIMENSION = 40;
+const TILE_DIMENSION = 30;
 const TILES_ROW = canvas.height / TILE_DIMENSION;
 const TILES_COLUMNS = canvas.width / TILE_DIMENSION;
 let tileMatrix = [];
 let playedColumn = 0;
+let interval;
 
 function playNote(frequency) {
     var oscillator = audioCtx.createOscillator();
     var gain = audioCtx.createGain();
-    oscillator.type = "sawtooth";
+    oscillator.type = waveType;
     oscillator.frequency.value = frequency; // value in hertz
     oscillator.connect(gain)
     gain.connect(audioCtx.destination);
     oscillator.start();
-    gain.gain.setTargetAtTime(0, audioCtx.currentTime, 0.05);
+    gain.gain.setTargetAtTime(0, audioCtx.currentTime, gainTime);
+    oscillator.stop(audioCtx.currentTime+gainTime*5);
 }
 
 
@@ -38,9 +42,18 @@ canvas.addEventListener("click", function (evt) {
     }
 
     playNote(noteValues[row]);
-
-
 });
+
+document.getElementById("play").addEventListener("click", function (evt) {
+    
+    if(interval){
+        clearInterval(interval);
+        interval = null;
+    }else{
+        interval = setInterval(refresh, velocity);
+    }
+    return false
+})
 
 //Get Mouse Position
 function getMousePos(canvas, evt) {
@@ -97,6 +110,6 @@ function refresh() {
 
 init();
 
-setInterval(refresh, 150);
+//setInterval(refresh, velocity);
 
 
