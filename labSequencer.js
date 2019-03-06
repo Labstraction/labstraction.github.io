@@ -49,6 +49,7 @@ document.getElementById("play").addEventListener("click", function (evt) {
     if(interval){
         clearInterval(interval);
         interval = null;
+        
     }else{
         interval = setInterval(refresh, velocity);
     }
