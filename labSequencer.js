@@ -2,12 +2,11 @@
 
 
 let waveType = "sine";
-let oscillatorsArray;
 let audioCtx;
 let noteValues = Object.values(note)
 let canvas = document.getElementById("myCanvas");
 let graphicCtx = canvas.getContext("2d");
-const TILE_DIMENSION = 20;
+const TILE_DIMENSION = 40;
 const TILES_ROW = canvas.height / TILE_DIMENSION;
 const TILES_COLUMNS = canvas.width / TILE_DIMENSION;
 let tileMatrix = [];
@@ -16,12 +15,12 @@ let playedColumn = 0;
 function playNote(frequency) {
     var oscillator = audioCtx.createOscillator();
     var gain = audioCtx.createGain();
-    oscillator.type = 'sine';
+    oscillator.type = "sawtooth";
     oscillator.frequency.value = frequency; // value in hertz
     oscillator.connect(gain)
     gain.connect(audioCtx.destination);
     oscillator.start();
-    gain.gain.setTargetAtTime(0, audioCtx.currentTime, 0.5);
+    gain.gain.setTargetAtTime(0, audioCtx.currentTime, 0.05);
 }
 
 
@@ -36,8 +35,6 @@ canvas.addEventListener("click", function (evt) {
     tile.drawTile(graphicCtx);
     if (!audioCtx) {
         audioCtx = new (window.AudioContext || window.webkitAudioContext)();
-        oscillatorsArray = createOscillatorArray();
-        console.log(oscillatorsArray);
     }
 
     playNote(noteValues[row]);
@@ -70,28 +67,6 @@ function init() {
 }
 
 
-
-
-
-
-function createOscillatorArray() {
-    let tempArray = [];
-    for (const key in noteValues) {
-        if (noteValues.hasOwnProperty(key)) {
-            const element = noteValues[key];
-            var oscillator = audioCtx.createOscillator();
-            var gain = audioCtx.createGain();
-            oscillator.type = 'sine';
-            oscillator.frequency.value = element; // value in hertz
-            oscillator.connect(gain)
-            gain.gain.value = 0.5;
-            gain.connect(audioCtx.destination);
-            tempArray.push({ oscillatorNode: oscillator, gainNode: gain });
-        }
-    }
-    return tempArray;
-}
-
 function refresh() {
     let lastPlayedColumn = playedColumn - 1 === -1 ? TILES_COLUMNS - 1 : playedColumn - 1;
 
@@ -102,6 +77,12 @@ function refresh() {
         let newTile = tileMatrix[i][playedColumn];
         newTile.isPlayed = true;
         newTile.drawTile(graphicCtx);
+        if(audioCtx){
+            if(newTile.status===tileStatus.active||newTile.status===tileStatus.activeLock){
+                playNote(noteValues[i]);
+            }
+        }
+        
     }
 
     playedColumn = playedColumn + 1 === TILES_COLUMNS ? 0 : playedColumn + 1;
@@ -116,6 +97,6 @@ function refresh() {
 
 init();
 
-setInterval(refresh, 200);
+setInterval(refresh, 150);
 
 
