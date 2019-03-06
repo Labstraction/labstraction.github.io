@@ -1,7 +1,7 @@
 'use strict'
 
 
-let waveType = "saw";
+let waveType = "triangular";
 let audioCtx;
 const velocity = 200;
 const gainTime = velocity/1000;
