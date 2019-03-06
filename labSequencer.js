@@ -1,14 +1,14 @@
 'use strict'
 
 
-let waveType = "triangular";
+let waveType = "square";
 let audioCtx;
 const velocity = 200;
 const gainTime = velocity/1000;
 let noteValues = Object.values(note)
 let canvas = document.getElementById("myCanvas");
 let graphicCtx = canvas.getContext("2d");
-const TILE_DIMENSION = 30;
+const TILE_DIMENSION = 20;
 const TILES_ROW = canvas.height / TILE_DIMENSION;
 const TILES_COLUMNS = canvas.width / TILE_DIMENSION;
 let tileMatrix = [];
@@ -24,7 +24,7 @@ function playNote(frequency) {
     gain.connect(audioCtx.destination);
     oscillator.start();
     gain.gain.setTargetAtTime(0, audioCtx.currentTime, gainTime);
-    oscillator.stop(audioCtx.currentTime+gainTime*5);
+    oscillator.stop(audioCtx.currentTime+gainTime*10);
 }
 
 

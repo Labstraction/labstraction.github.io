@@ -3,7 +3,7 @@ const COLOR_IDLE = "#313131";
 const COLOR_ACTIVE = "#f32148";
 const COLOR_BORDER_LOCKED = "#ffffff";
 const COLOR_BORDER_UNLOCKED = "#000000";
-const COLOR_BORDER_PLAYED = "#f32148";
+const COLOR_BORDER_PLAYED = "#ffffff";
 
 function Tile(originX, originY, width, heigh){
     this.originX = originX;
@@ -26,7 +26,6 @@ function tileFillColor(){
         case tileStatus.activeLock:
             return COLOR_ACTIVE;
     }
-
 };
 
 Tile.prototype.tileFillColor = tileFillColor;
@@ -47,6 +46,7 @@ function drawTile(context){
     context.beginPath();
     context.clearRect(this.originX, this.originY, this.width, this.heigh);
     context.rect(this.originX+1, this.originY+1, this.width-2, this.heigh-2);
+    context.lineWidth = 2;
     context.fillStyle = this.tileFillColor();
     context.fill();
     context.strokeStyle = this.tileBorderColor();
@@ -60,6 +60,6 @@ var tileStatus = {
     idle : 0,
     active : 1,
     activeLock: 2,
-    idleLock:3
+    idleLock: 3
 };
 
