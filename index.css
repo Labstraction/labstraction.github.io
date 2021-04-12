@@ -1,15 +1,30 @@
-* {
-    box-sizing: border-box;
-}
-body {
+
+@import url('https://fonts.googleapis.com/css2?family=DM+Mono:wght@300&display=swap');
+
+
+html, body {
     background-color: #313131;
     color: white;
-    font-family: 'Roboto Mono', monospace;
-    font-size: 2vh;
+    font-family: 'DM Mono', monospace;
 }
 
+header{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
 
-.header-image{
+.monkey{
+    font-size: 8vw;
+    color: #33ff00;
+}
+
+.title{
+    font-size: 4vw;
+}
+
+/* .header-image{
     height: 20vh;
 }
 
@@ -89,4 +104,4 @@ li {
     .right{
         display: none;
     }
-}
+} */
